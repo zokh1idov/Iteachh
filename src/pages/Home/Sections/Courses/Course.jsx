@@ -237,16 +237,10 @@ function Course() {
                 prev === courses.length ? 6 : courses.length
               )
             }
-            className="group inline-flex items-center gap-2 rounded-full border border-[#dfe7e2] bg-white px-6 py-3 text-[12px] font-bold text-[#16a34a] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#a8dfba] hover:shadow-[0_10px_25px_rgba(22,163,74,0.1)]"
+            className=""
           >
-            {visibleCount === courses.length
-              ? "Kamroq ko'rish"
-              : "Barcha kurslarni ko'rish"}
 
-            <ArrowRight
-              size={14}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
+
           </button>
         </div>
       </div>
