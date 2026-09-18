@@ -7,7 +7,6 @@ function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full px-4 pt-4">
       <nav className="mx-auto flex h-[70px] max-w-[1200px] items-center justify-between rounded-[22px] border border-[#edf1ef] bg-white/95 px-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-md">
-
         <a
           href="#"
           className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-80"
@@ -20,7 +19,6 @@ function Navbar() {
         </a>
 
         <ul className="hidden items-center gap-7 lg:flex xl:gap-8">
-
           <li>
             <a
               href="#courses"
@@ -43,7 +41,7 @@ function Navbar() {
 
           <li>
             <a
-              href="#results"
+              href="#about"
               className="group relative py-2 text-[14px] font-medium text-[#59636b] transition-colors duration-300 hover:text-[#16a34a]"
             >
               Natijalar
@@ -63,10 +61,20 @@ function Navbar() {
 
           <li>
             <a
-              href="#about"
+              href="#results"
               className="group relative py-2 text-[14px] font-medium text-[#59636b] transition-colors duration-300 hover:text-[#16a34a]"
             >
               Biz haqimizda
+              <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-[#16a34a] shadow-[0_0_8px_rgba(22,163,74,0.5)] transition-all duration-300 group-hover:w-full" />
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#Savolar"
+              className="group relative py-2 text-[14px] font-medium text-[#59636b] transition-colors duration-300 hover:text-[#16a34a]"
+            >
+              Savollar
               <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-[#16a34a] shadow-[0_0_8px_rgba(22,163,74,0.5)] transition-all duration-300 group-hover:w-full" />
             </a>
           </li>
@@ -80,11 +88,9 @@ function Navbar() {
               <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-[#16a34a] shadow-[0_0_8px_rgba(22,163,74,0.5)] transition-all duration-300 group-hover:w-full" />
             </a>
           </li>
-
         </ul>
 
         <div className="hidden shrink-0 items-center gap-5 lg:flex">
-
           <a
             href="tel:+998886657777"
             className="group flex items-center gap-2 text-[14px] font-semibold text-[#26323a] transition-colors duration-300 hover:text-[#16a34a]"
@@ -106,7 +112,6 @@ function Navbar() {
               className="transition-transform duration-300 group-hover:translate-x-1"
             />
           </a>
-
         </div>
 
         <button
@@ -117,14 +122,11 @@ function Navbar() {
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
-
       </nav>
 
       {open && (
         <div className="mx-auto mt-2 max-w-[1200px] rounded-[20px] border border-[#edf1ef] bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)] lg:hidden">
-
           <div className="flex flex-col gap-2">
-
             <a
               href="#courses"
               onClick={() => setOpen(false)}
@@ -197,7 +199,6 @@ function Navbar() {
               Kursga yozilish
               <ArrowRight size={18} />
             </a>
-
           </div>
         </div>
       )}

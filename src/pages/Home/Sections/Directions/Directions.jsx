@@ -5,25 +5,25 @@ const directions = [
     icon: Code2,
     title: "Dasturlash",
     desc: "Frontend, Backend va Python darslari yordamida dunyoning xohlagan nuqtasidan turib ishlang.",
-    count: "3 ta kurs",
+ 
   },
   {
     icon: LayoutDashboard,
     title: "Dizayn",
     desc: "3D Max Interior Design va zamonaviy UI/UX dizayn qonun-qoidalarini chuqur o'rganing.",
-    count: "2 ta kurs",
+
   },
   {
     icon: Megaphone,
     title: "SMM & Marketing",
     desc: "SMM PRO kursi orqali brendlarni ijtimoiy tarmoqlarda professional rivojlantiring.",
-    count: "1 ta kurs",
+
   },
   {
     icon: Cpu,
     title: "Sun'iy Intellekt (AI)",
     desc: "Neyrotarmoqlar va AI vositalaridan real loyihalarda unumli foydalanishni o'rganing.",
-    count: "1 ta kurs",
+  
   },
 ];
 
@@ -112,7 +112,7 @@ function Directions() {
                   <Icon size={20} className="text-[#16a34a]" />
                 </div>
 
-                <h3 className="mt-5 text-[18px] font-bold text-[#0a1522]">
+                <h3 className="mt-5 text-[20px] font-bold text-[#0a1522]">  
                   {item.title}
                 </h3>
 
@@ -121,12 +121,10 @@ function Directions() {
                 </p>
 
                 <div className="mt-6 flex items-center justify-between border-t border-[#eef1f0] pt-4">
-                  <span className="text-[13px] font-semibold text-[#16a34a]">
-                    {item.count}
-                  </span>
+
                   <a
                     href="#courses"
-                    className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#0a1522] transition-colors duration-300 hover:text-[#16a34a]"
+                    className="inline-flex items-center gap-1.5 rounded-[10px] bg-[#16a34a] px-4 py-2 text-[13px] font-semibold text-white shadow-[0_2px_6px_rgba(22,163,74,0.25)] transition-all duration-300 hover:bg-[#128a3e] hover:shadow-[0_4px_10px_rgba(22,163,74,0.32)]"
                   >
                     Batafsil
                     <ArrowRight size={14} className="dir-arrow" />
