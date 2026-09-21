@@ -13,30 +13,26 @@ const slides = [
     title: "Dasturlash yo'nalishi",
     subtitle: "Frontend, Backend va Mobile dasturlash",
     icon: Code,
-    image:
-      "/imgs/slide1.avif",
+    image: "/imgs/slide1.avif",
   },
   {
     title: "Dizayn va Grafika",
     subtitle: "UI/UX, Grafika va 3D Modellashtirish",
     icon: Palette,
-    image:
-      "/imgs/slide3.avif",
+    image: "/imgs/slide3.avif",
   },
   {
     title: "Raqamli Marketing",
     subtitle: "SMM, Target va Kontekst reklama",
     icon: Megaphone,
-    image:
-      "/imgs/slide2.avif",
+    image: "/imgs/slide2.avif",
   },
-{
-  title: "Sun'iy Intellekt",
-  subtitle: "AI vositalari va Prompt injiniring",
-  icon: Brain,
-  image:
-    "/imgs/slide4.avif",
-},
+  {
+    title: "Sun'iy Intellekt",
+    subtitle: "AI vositalari va Prompt injiniring",
+    icon: Brain,
+    image: "/imgs/slide4.avif",
+  },
 ];
 
 function Counter({ value, suffix = "" }) {
@@ -116,29 +112,39 @@ function HeroSlider() {
               alt={s.title}
               className="h-full w-full object-cover animate-[sliderImage_700ms_ease-out]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           </div>
         ))}
 
-        <div className="absolute bottom-4 left-4 right-4 z-20 flex translate-y-3 items-center gap-3 opacity-0 animate-[sliderInfo_650ms_150ms_ease-out_forwards] rounded-[14px] border border-white/20 bg-white/90 px-4 py-3 backdrop-blur-sm">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px] bg-[#f0fdf4]">
-            <Icon size={17} className="text-[#16a34a]" />
+        {/* Glass info card */}
+        <div
+          key={active}
+          className="absolute bottom-4 left-4 right-4 z-20 flex translate-y-3 items-center gap-3.5 rounded-[18px] border border-white/25 bg-white/10 px-4 py-3.5 opacity-0 shadow-[0_8px_32px_rgba(0,0,0,0.25)] ring-1 ring-inset ring-white/10 backdrop-blur-xl backdrop-saturate-150 animate-[sliderInfo_650ms_150ms_ease-out_forwards]"
+        >
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] bg-white/95 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+            <Icon size={20} className="text-[#16a34a]" />
           </span>
-          <div className="text-left">
-            <div className="text-[13.5px] font-semibold leading-tight text-[#0a1522]">
+
+          <div className="min-w-0 flex-1 text-left">
+            <div className="truncate text-[15px] font-semibold leading-tight text-white drop-shadow-sm">
               {current.title}
             </div>
-            <div className="mt-0.5 text-[11.5px] text-[#6b7a75]">
+            <div className="mt-1 truncate text-[12.5px] leading-snug text-white/75">
               {current.subtitle}
             </div>
           </div>
+
+          <span className="shrink-0 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-medium tabular-nums text-white/80">
+            {String(active + 1).padStart(2, "0")} /{" "}
+            {String(slides.length).padStart(2, "0")}
+          </span>
         </div>
 
         <button
           type="button"
           onClick={() => goTo(active - 1)}
           aria-label="Oldingi"
-          className="absolute left-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-[#0a1522] shadow-[0_6px_16px_rgba(0,0,0,0.12)] backdrop-blur-sm opacity-0 transition-all duration-300 group-hover:opacity-100 hover:bg-[#22c55e] hover:text-white"
+          className="absolute left-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] backdrop-blur-md opacity-0 transition-all duration-300 group-hover:opacity-100 hover:border-transparent hover:bg-[#22c55e]"
         >
           <ArrowLeft size={16} />
         </button>
@@ -146,7 +152,7 @@ function HeroSlider() {
           type="button"
           onClick={() => goTo(active + 1)}
           aria-label="Keyingi"
-          className="absolute right-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-[#0a1522] shadow-[0_6px_16px_rgba(0,0,0,0.12)] backdrop-blur-sm opacity-0 transition-all duration-300 group-hover:opacity-100 hover:bg-[#22c55e] hover:text-white"
+          className="absolute right-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white shadow-[0_6px_16px_rgba(0,0,0,0.15)] backdrop-blur-md opacity-0 transition-all duration-300 group-hover:opacity-100 hover:border-transparent hover:bg-[#22c55e]"
         >
           <ArrowRight size={16} />
         </button>

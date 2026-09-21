@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 
 const faqData = [
   {
-    q: "Najot Ta'limda qanday kurslar bor?",
+    q: "Iteach da qanday kurslar bor?",
     a: "Markazimizda dasturlash, dizayn, SMM & marketing va sun'iy intellekt (AI) yo'nalishlari bo'yicha kurslar mavjud.",
   },
   {
@@ -11,7 +11,7 @@ const faqData = [
     a: "Bizda til kurslari mavjud emas. Markazimizda dasturlash, grafik dizayn va marketing yo'nalishlari bo'yicha ta'lim beriladi.",
   },
   {
-    q: "Najot Ta'lim ish bilan ta'minlaydimi?",
+    q: "Iteach ish bilan ta'minlaydimi?",
     a: "Kurslarni muvaffaqiyatli bitirgan o'quvchilarga ma'lum shartlar asosida ish taklifi beriladi. Har oy bitiruvchilarning ishga kirish statistikasi ijtimoiy tarmoqlarda yoritib boriladi.",
   },
   {
@@ -23,7 +23,7 @@ const faqData = [
     a: 'Yoshlar ishlari agentligining "Kelajak kasblari" granti asosida o\'qishingiz mumkin. Ariza tasdiqlansa, 6 oygacha 1 mln 300 minggacha kurs to\'lovi qoplab beriladi.',
   },
   {
-    q: "Najot Ta'lim qayerda joylashgan?",
+    q: "Iteach qayerda joylashgan?",
     a: "Toshkent shahrida (Xadra, Chilonzor, Chimboy) hamda Farg'ona, Samarqand va Xorazm viloyatlarida filiallar mavjud. Call-markaz: 78 888 98 88.",
   },
 ];

@@ -79,7 +79,6 @@ function VideoCard({ video, isPlaying, onPlay }) {
       id="about"
       className="group relative aspect-[9/16] w-[230px] flex-none overflow-hidden rounded-2xl bg-[#0a1522] shadow-sm sm:w-[220px]"
     >
-
       <video
         ref={videoRef}
         src={video.src}
@@ -104,7 +103,9 @@ function VideoCard({ video, isPlaying, onPlay }) {
                 </p>
               </div>
               <p className="mb-1 text-[11px] text-white/70">{video.name}</p>
-              <p className="text-[12px] font-medium text-white">{video.caption}</p>
+              <p className="text-[12px] font-medium text-white">
+                {video.caption}
+              </p>
             </div>
           )}
 
