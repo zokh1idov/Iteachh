@@ -1,71 +1,53 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Code2, Megaphone, Brain, Boxes } from "lucide-react";
+import { db } from "../../../../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
 
-const courses = [
+const COURSE_VISUALS = [
   {
-    title: "SMM PRO kursi",
-    age: "4 oy",
-    lessons: "6 ta bo'lim",
-    mentor: "Rahmatulloh Abdullazizov",
-    language: "O'zbekcha",
-    icon: Megaphone,
-    image:
-      "/imgs/slider1.jpg",
+    keywords: ["front", "react", "html", "css", "javascript", " js"],
+    icon: Code2,
+    image: "/imgs/slider7.jfif",
   },
   {
-    title: "Sun'iy intellekt kursi",
-    age: "4 oy",
-    lessons: "12 ta bo'lim",
-    mentor: "Asadbek Turg'unboyev",
-    language: "O'zbekcha",
-    icon: Brain,
-    image:
-      "/imgs/slider2.avif",
+    keywords: ["back", "node", "server", "sql", "php", "java"],
+    icon: Code2,
+    image: "/imgs/slide1.avif",
   },
   {
-    title: "3D Max Interior Design kursi",
-    age: "4 oy",
-    lessons: "12 ta bo'lim",
-    mentor: "Abdulaziz Yusufjonov",
-    language: "O'zbekcha",
+    keywords: ["3d", "max", "blender", "design", "interior"],
     icon: Boxes,
-    image:
-      "/imgs/slider3.webp",
+    image: "/imgs/slider3.webp",
   },
   {
-    title: "Python dasturlash kursi",
-    age: "4 oy",
-    lessons: "12 ta bo'lim",
-    mentor: "Abdul Hakam",
-    language: "O'zbekcha",
-    icon: Code2,
-    image:
-      "/imgs/slider5.jfif",
+    keywords: ["ai", "sun'iy", "intellekt", "intelligence", "chatgpt"],
+    icon: Brain,
+    image: "/imgs/slider2.avif",
   },
   {
-    title: "Frontend dasturlash kursi",
-    age: "8 oy",
-    lessons: "15 ta bo'lim",
-    mentor: "Sherali Bobonazarov",
-    language: "O'zbekcha",
-    icon: Code2,
-    image:
-      "/imgs/slider7.jfif",
+    keywords: ["smm", "marketing", "digital"],
+    icon: Megaphone,
+    image: "/imgs/slider1.jpg",
   },
   {
-    title: "Backend dasturlash kursi",
-    age: "4 oy",
-    lessons: "12 ta bo'lim",
-    mentor: "Abdurahmon Karimov",
-    language: "O'zbekcha",
+    keywords: ["python"],
     icon: Code2,
-    image:
-      "/imgs/slide1.avif",
+    image: "/imgs/slider5.jfif",
   },
 ];
 
+const DEFAULT_VISUAL = { icon: Code2, image: "/imgs/slider1.jpg" };
+
+function getCourseVisual(title = "") {
+  const lower = title.toLowerCase();
+  const match = COURSE_VISUALS.find((v) =>
+    v.keywords.some((k) => lower.includes(k))
+  );
+  return match || DEFAULT_VISUAL;
+}
+
 function CourseCard({ course, index }) {
-  const Icon = course.icon;
+  const { icon: Icon, image } = getCourseVisual(course.title);
 
   return (
     <article
@@ -76,7 +58,7 @@ function CourseCard({ course, index }) {
     >
       <div className="relative h-[155px] overflow-hidden rounded-[10px] bg-[#f0fdf4]">
         <img
-          src={course.image}
+          src={image}
           alt={course.title}
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
         />
@@ -95,12 +77,14 @@ function CourseCard({ course, index }) {
 
         <div className="mt-2.5 space-y-1 text-[9px] leading-[1.4] text-[#78837f]">
           <p className="text-[15px]">
-            Davomiyligi:{" "}
-            <span className="font-semibold text-[#39443f]">{course.age}</span>
-            <span className="mx-2 text-[#d5dcd8]">•</span>
-            Bo'limlar:{" "}
+            O'quvchilar:{" "}
             <span className="font-semibold text-[#39443f]">
-              {course.lessons}
+              {course.students || 0}
+            </span>
+            <span className="mx-2 text-[#d5dcd8]">•</span>
+            Holat:{" "}
+            <span className="font-semibold text-[#39443f]">
+              {course.status || "Faol"}
             </span>
           </p>
 
@@ -108,13 +92,6 @@ function CourseCard({ course, index }) {
             Mentor:{" "}
             <span className="font-semibold text-[#39443f]">
               {course.mentor}
-            </span>
-          </p>
-
-          <p className="text-[15px]">
-            Ta'lim tili:{" "}
-            <span className="font-semibold text-[#39443f]">
-              {course.language}
             </span>
           </p>
         </div>
@@ -146,16 +123,27 @@ function CourseCard({ course, index }) {
 }
 
 function Course() {
+  const [courses, setCourses] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    const unsub = onSnapshot(collection(db, "courses"), (snap) => {
+      setCourses(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+    });
+
+    return () => unsub();
+  }, []);
+
+  useEffect(() => {
+    if (courses.length === 0) return;
+
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % courses.length);
     }, 3500);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [courses.length]);
 
   const visibleCourses = courses.slice(0, visibleCount);
 
@@ -166,25 +154,12 @@ function Course() {
     >
       <style>{`
         @keyframes courseIn {
-          from {
-            opacity: 0;
-            transform: translateY(28px) scale(0.97);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+          from { opacity: 0; transform: translateY(28px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
-
         @keyframes titleIn {
-          from {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
 
@@ -207,42 +182,53 @@ function Course() {
           </h4>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleCourses.map((course, index) => (
-            <CourseCard key={course.title} course={course} index={index} />
-          ))}
-        </div>
+        {courses.length === 0 ? (
+          <p className="text-center text-[#8a9490]">
+            Hozircha kurslar qo'shilmagan
+          </p>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {visibleCourses.map((course, index) => (
+                <CourseCard key={course.id} course={course} index={index} />
+              ))}
+            </div>
 
-        <div className="mt-7 flex items-center justify-center gap-2">
-          {courses.map((course, index) => (
-            <button
-              key={course.title}
-              type="button"
-              onClick={() => setActive(index)}
-              aria-label={course.title}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                index === active
-                  ? "w-7 bg-[#16a34a]"
-                  : "w-1.5 bg-[#cfd8d3] hover:bg-[#8ed3a7]"
-              }`}
-            />
-          ))}
-        </div>
+            <div className="mt-7 flex items-center justify-center gap-2">
+              {courses.map((course, index) => (
+                <button
+                  key={course.id}
+                  type="button"
+                  onClick={() => setActive(index)}
+                  aria-label={course.title}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    index === active
+                      ? "w-7 bg-[#16a34a]"
+                      : "w-1.5 bg-[#cfd8d3] hover:bg-[#8ed3a7]"
+                  }`}
+                />
+              ))}
+            </div>
 
-        <div className="mt-8 flex justify-center">
-          <button
-            type="button"
-            onClick={() =>
-              setVisibleCount((prev) =>
-                prev === courses.length ? 6 : courses.length
-              )
-            }
-            className=""
-          >
-
-
-          </button>
-        </div>
+            {courses.length > 6 && (
+              <div className="mt-8 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setVisibleCount((prev) =>
+                      prev === courses.length ? 6 : courses.length
+                    )
+                  }
+                  className="rounded-full bg-[#16a34a] px-6 py-2 text-sm font-bold text-white hover:bg-[#15803d] transition-colors"
+                >
+                  {visibleCount === courses.length
+                    ? "Kamroq ko'rsatish"
+                    : "Barchasini ko'rish"}
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
   );
